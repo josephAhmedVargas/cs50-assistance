@@ -17,7 +17,7 @@ class Attendance extends Model
         return $this->belongsTo(Cycle::class);
     }
 
-    public function registeredBy()
+    public function user_who_registered()
     {
         return $this->belongsTo(User::class, 'registered_by');
     }

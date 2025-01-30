@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('attendance-students', AttendanceStudentController::class);
 
+    Route::get('attendances/block/{date}/{block}', [AttendanceController::class, 'blockDetails'])->name('attendances.block');
+
 });
 
 require __DIR__.'/auth.php';
