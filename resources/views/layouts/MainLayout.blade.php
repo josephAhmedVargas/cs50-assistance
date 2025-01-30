@@ -29,7 +29,7 @@
                      <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
                   </svg>
                </button>
-              <a href="#" class="flex ms-2 md:me-24">
+              <a href="/" class="flex ms-2 md:me-24">
                 <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
                 <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Flowbite</span>
               </a>
@@ -88,7 +88,7 @@
                        </a>
                     </li>
                     <li>
-                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                       <a href="{{route('attendances.index')}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                           <i class="fa-solid fa-circle-info"></i>
                           <span class="flex-1 ms-2 whitespace-nowrap">Ver Asistencia</span>
                        </a>
@@ -111,11 +111,12 @@
       
       <div class="p-4 sm:ml-64">
          <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-            <div class="grid {{ request()->is('attendances') ? '' : 'grid-cols-3' }} gap-4 mb-4">
+            <div class="grid gap-4 mb-4">
                 @yield('content') 
             </div>
          </div>
       </div>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.0.0/dist/flowbite.min.js"></script>
+    {{-- {{ request()->is('attendances') ? '' : 'grid-cols-3' }} --}}
     </body>
 </html>
