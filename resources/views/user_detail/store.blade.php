@@ -18,7 +18,9 @@
             <div class="w-3/4">
                 <div class="tab-content p-2">
                     <div class="tab-pane active" id="account-general">
-                        @include('components.detail-user-form')
+                        {{-- @include('components.detail-user-form') --}}
+                        {{-- @include('components.security-user-form') --}}
+                        @include('components.general-user-form')
                    </div>
             </div>
         </div>

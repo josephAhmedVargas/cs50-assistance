@@ -6,21 +6,21 @@
             <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
 
                 <div class="sm:col-span-2">
-                    <label for="Biografia" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biografia</label>
-                    <textarea id="biografia" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+                    <label for="biography" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biografia</label>
+                    <textarea id="biography" name="biography" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
                 </div>
                 <div class="sm:col-span-2">
-                    <label for="github" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usuario GitHub</label>
-                    <input type="github" name="github" id="github" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+                    <label for="github_username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usuario GitHub</label>
+                    <input type="text" name="github_username" id="github_username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
                 </div>
                 <div class="w-full">
-                    <label for="cargo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cargo</label>
-                    <input type="text" name="cargo" id="cargo" class="mb-5 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" disabled>
+                    <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cargo</label>
+                    <input type="text" name="role" id="role" class="mb-5 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" disabled>
                 </div>
         
                 <div class="">
-                    <label for="item-weight" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo Staff</label>
-                    <input type="number" name="item-weight" id="item-weight" class="mb-5 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" disabled readonly>
+                    <label for="staff_mail" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Correo Staff</label>
+                    <input type="text" name="staff_mail" id="staff_mail" class="mb-5 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" disabled readonly>
                 </div> 
                 
             </div>
