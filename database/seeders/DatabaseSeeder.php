@@ -26,16 +26,22 @@ class DatabaseSeeder extends Seeder
         Role::factory()->create(['name' => 'CA']);
         Role::factory()->create(['name' => 'student']);
 
+        Cycle::factory()->create(['name' => 'Y25C1', 'start_date' => '2025-03-01', 'end_date' => '2025-08-31']);
+
+
+        Group::factory()->create(['name' => 'Group A', 'schedule' => '8:00 - 10:00', 'cycle_id' => 1]);
+        Group::factory()->create(['name' => 'Group B', 'schedule' => '10:00 - 12:00', 'cycle_id' => 1]);
+        Group::factory()->create(['name' => 'Group C', 'schedule' => '01:00 - 03:00', 'cycle_id' => 1]);
+        Group::factory()->create(['name' => 'Group E', 'schedule' => '03:00 - 05:00', 'cycle_id' => 1]);
+
         User::factory()->create([
             'name' => 'Y23C1-jvargas',
             'email' => 'joseph@gmail.com',
             'password' => bcrypt('123'),
-            'role_id' => 1
+            'role_id' => 1,
+            'group_id' => 1
         ]);
         
-
-        Group::factory()->create(['name' => 'Group A', 'schedule' => '8:00 - 10:00']);
-        Cycle::factory()->create(['name' => 'Y25C1', 'start_date' => '2025-03-01', 'end_date' => '2025-08-31']);
         $attendances = Attendance::factory(20)->create();
     }
 }

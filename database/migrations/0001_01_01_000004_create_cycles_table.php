@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name')->nullable()->default(null); // Example: 'Y24C1'
             $table->date('start_date')->nullable()->default(null);
             $table->date('end_date')->nullable()->default(null);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ class UserDetailController extends Controller
      */
     public function index()
     {
-        return view('user_detail.store');
+        return view('user_detail.index');
     }
 
     /**

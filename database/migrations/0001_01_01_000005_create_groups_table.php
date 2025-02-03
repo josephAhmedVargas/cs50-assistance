@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('cycle_id')->constrained('cycles')->onDelete('cascade');
             $table->string('name');
             $table->string('schedule'); // Example: '8-10 AM'
             $table->timestamps();

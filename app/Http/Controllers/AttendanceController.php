@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Attendance;
 use App\Http\Requests\StoreAttendanceRequest;
 use App\Http\Requests\UpdateAttendanceRequest;
+use App\Models\User;
+use App\Models\UsersInfo;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -27,7 +29,38 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        //
+        return view('attendances.new');
+    }
+
+    public function buscarEstudiantes(Request $request)
+    {
+        // $query = $request->input('q');
+        $estudiantes = User::query();
+
+        // Convertir tanto el nombre a buscar como los nombres de la base de datos a minúsculas para una comparación exacta
+        // $estudiantes = User::all()->where('name', 'like', '%' . strtolower($request->input('q')) . '%');
+
+        if ($request->has('q')) {
+            $search = $request->input('q');
+
+            $query = UsersInfo::query();
+            $query->whereAny(["first_name", "last_name", "middle_name", "second_last_name"], 'like', '%' . $search . '%');
+
+            $query->orWhereHas('user', function($query) use ($search) {
+                $query->whereAny(["unique_code", "name"], 'like', '%' . $search . '%');
+            });
+            $query->with('user');
+            return $query->get();
+        }
+        else {
+            return UsersInfo::all();
+        }
+        // Verificar si se encontraron resultados
+        if ($estudiantes->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron estudiantes'], 404);
+        }
+
+        return response()->json($estudiantes->get());
     }
 
     /**
@@ -53,6 +86,37 @@ class AttendanceController extends Controller
         return back()->with('success', 'Attendance recorded successfully');
     }
 
+
+    public function guardarAsistencia(Request $request)
+    {
+        $request->validate([
+            'fecha' => 'required|date',
+            'clase_id' => 'required',
+            'actividad_id' => 'required',
+            'estudiantes' => 'required|array'
+        ]);
+
+        dd($request->estudiantes);
+
+        // foreach ($request->estudiantes as $estudiante) {
+        //     Attendance::create([
+        //         'user_id' => $estudiante['id'],
+        //         'fecha' => $request->fecha,
+        //         'class_number' => $request->clase_id,
+        //         'actividad_id' => $request->actividad_id,
+        //         'asistencia' => $estudiante['asistencia'],
+        //         'nota' => $estudiante['nota'] ?? null
+        //     ]);
+        // }
+
+        return response()->json(['success' => true, 'message' => 'Asistencia guardada exitosamente.']);
+    }
+
+    public function eliminarAsistencia($id)
+    {
+        $asistencia = Attendance::findOrFail($id);
+        return response()->json(['success' => true, 'message' => 'Registro eliminado.']);
+    }
     /**
      * Display the specified resource.
      */

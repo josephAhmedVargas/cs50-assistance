@@ -11,11 +11,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::get('api/estudiantes', [AttendanceController::class, 'buscarEstudiantes'])->name('api.estudiantes');
+Route::post('/asistencia/guardar', [AttendanceController::class, 'guardarAsistencia']);
+Route::delete('/asistencia/eliminar/{id}', [AttendanceController::class, 'eliminarAsistencia']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/prueba', function () {
+    return view('prueba');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -31,7 +37,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('attendance-students', AttendanceStudentController::class);
 
     Route::get('attendances/block/{date}/{block}', [AttendanceController::class, 'blockDetails'])->name('attendances.block');
-
 });
 
 require __DIR__.'/auth.php';

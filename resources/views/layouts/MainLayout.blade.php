@@ -82,7 +82,7 @@
                  </button>
                  <ul id="dropdown-example" class="hidden py-2 space-y-2">
                     <li>
-                       <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                       <a href="{{route('attendances.create')}}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                           <i class="fa-solid fa-circle-up"></i>
                           <span class="flex-1 ms-2 whitespace-nowrap">Subir Asistencia</span>
                        </a>
@@ -100,7 +100,7 @@
             <ul class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
               <p class="px-4 text-xs text-gray-600 dark:text-gray-400">AJUSTES DE LA CUENTA</p>
               <li>
-                 <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                 <a href="{{route('user-details.index')}}" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <i class="fa-regular fa-circle-user"></i>
                     <span class="flex-1 ms-2 whitespace-nowrap">Perfil</span>
                  </a>
