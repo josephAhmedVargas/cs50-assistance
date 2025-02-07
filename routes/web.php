@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home')->middleware('auth');
 
-Route::get('api/estudiantes', [AttendanceController::class, 'buscarEstudiantes'])->name('api.estudiantes');
-Route::post('/asistencia/guardar', [AttendanceController::class, 'guardarAsistencia']);
-Route::delete('/asistencia/eliminar/{id}', [AttendanceController::class, 'eliminarAsistencia']);
+Route::get('api/estudiantes', [AttendanceController::class, 'buscarEstudiantes'])->name('api.estudiantes')->middleware('auth');
+Route::post('/asistencia/guardar', [AttendanceController::class, 'guardarAsistencia'])->name('asistencia.guardar')->middleware('auth');
+Route::delete('/asistencia/eliminar/{id}', [AttendanceController::class, 'eliminarAsistencia'])->name('asistencia.eliminar')->middleware('auth');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

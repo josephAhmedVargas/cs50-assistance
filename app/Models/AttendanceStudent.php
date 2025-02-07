@@ -9,4 +9,11 @@ class AttendanceStudent extends Model
 {
     /** @use HasFactory<\Database\Factories\AttendanceStudentFactory> */
     use HasFactory;
+
+    protected $table = 'attendance_students';
+
+    public function attendance()
+    {
+        return $this->belongsTo(Attendance::class);
+    }
 }

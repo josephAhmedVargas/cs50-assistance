@@ -20,4 +20,9 @@ class UsersInfo extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function group()
+    {
+        return $this->hasOneThrough(Group::class, User::class, 'id', 'id', 'user_id', 'group_id');
+    }
 }

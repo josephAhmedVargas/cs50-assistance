@@ -49,7 +49,7 @@ $titulos = [
 
                 <!-- Botón Ver Detalles -->
                 <a href="{{ route('attendances.show', $attendance->id) }}"
-                    class="px-2 py-1 text-xs font-semibold text-gray-600 bg-gray-100 rounded hover:bg-gray-200">
+                    class="attendance_details px-2 py-1 text-xs font-semibold text-gray-600 bg-gray-100 rounded hover:bg-gray-200" data-attendance-id="{{ $attendance->id }}">
                     Ver detalles
                 </a>
 
