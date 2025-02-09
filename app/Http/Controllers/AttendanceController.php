@@ -311,16 +311,16 @@ class AttendanceController extends Controller
 
     public function blockDetails(Request $request, $date, $block)
     {
-        
-        $userId = request()->user()->id;
-
-        $attendances = Attendance::with('user_who_registered')
+        $attendances = Attendance::with(['user_who_registered', 'students.info', 'students.group'])
             ->where('schedule', $block)
             ->whereDate('created_at', $date)
             ->whereNull('deleted_at')
             ->get();
 
-        return view('attendances.block-details', compact('attendances', 'block', 'date'));
+        if ($attendances->isEmpty()) {
+            Log::warning("No se encontraron asistencias para la fecha $date y bloque $block");
+        }
+        return response()->json(['attendances' => $attendances]);
     }
 
     /**

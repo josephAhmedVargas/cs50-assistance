@@ -42,16 +42,20 @@ $titulos = [
             <td>{{ $attendance->created_at->format('Y-m-d H:i:s') }}</td>
             <td class="flex space-x-2">
                 <!-- Botón Ver Detalles por Bloque -->
-                <a href="{{ route('attendances.block', ['date' => $attendance->created_at->format('Y-m-d'), 'block' => $attendance->schedule]) }}"
+                {{-- <a href="{{ route('attendances.block', ['date' => $attendance->created_at->format('Y-m-d'), 'block' => $attendance->schedule]) }}"
                     class="px-2 py-1 text-xs font-semibold text-blue-600 bg-blue-100 rounded hover:bg-blue-200">
                     Ver detalles por bloque
-                </a>
-
+                </a> --}}
+                <button data-modal-target="static-modal" data-modal-toggle="static-modal" class="view-details px-2 py-1 text-xs font-semibold text-blue-600 bg-blue-100 rounded hover:bg-blue-200" 
+                    data-date="{{ $attendance->created_at->format('Y-m-d') }}" 
+                    data-block="{{ $attendance->schedule }}">
+                    Ver detalles por bloque
+                </button>
                 <!-- Botón Ver Detalles -->
-                <a href="{{ route('attendances.show', $attendance->id) }}"
+                {{-- <a href="{{ route('attendances.show', $attendance->id) }}"
                     class="attendance_details px-2 py-1 text-xs font-semibold text-gray-600 bg-gray-100 rounded hover:bg-gray-200" data-attendance-id="{{ $attendance->id }}">
                     Ver detalles
-                </a>
+                </a> --}}
 
                 <!-- Botón Eliminar (Solo si el usuario autenticado es el creador) -->
                 @if (auth()->id() === $attendance->uploaded_by)
@@ -69,3 +73,5 @@ $titulos = [
         @endforeach
     </tbody>
 </table>
+
+
