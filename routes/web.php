@@ -2,14 +2,18 @@
 
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AttendanceStudentController;
+use App\Http\Controllers\GoogleSheetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserDetailController;
 use App\Http\Controllers\UsersInfoController;
 use Illuminate\Support\Facades\Route;
 
+
 Route::get('/', function () {
     return view('welcome');
 })->name('home')->middleware('auth');
+
+Route::get('/google-sheet', [GoogleSheetController::class, 'index'])->name('google-sheet')->middleware('auth');
 
 Route::get('api/estudiantes', [AttendanceController::class, 'buscarEstudiantes'])->name('api.estudiantes')->middleware('auth');
 Route::post('/asistencia/guardar', [AttendanceController::class, 'guardarAsistencia'])->name('asistencia.guardar')->middleware('auth');

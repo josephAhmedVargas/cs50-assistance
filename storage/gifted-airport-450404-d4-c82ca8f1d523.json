@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "gifted-airport-450404-d4",
+  "private_key_id": "c82ca8f1d5233602302397827f88a6ac8cba5249",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCo8SFdYmURCoHh\nVaLOKjRGKZTVj5OhclVjPzSe3/J36ilayjVG5lu9wK9HI7v/8RlTuduE1PZz2mri\n4WAoNmu1L65Jx2XmJp5a2hnJP5+RA4z2O1Am+4JG7Elk9jbvcuz4gqh7SLkZK1lh\nqPZI1+wWti40+a33ad7gMQO0FxyNLVQ19rMzLK8PJGXDXIGlbx0mY6INocMVIcrs\nHr9A4QU1YWfto9UbKciEnKieWkZhGDi9SfOvmkI18ImAZTm5yH6TO5m9/wtj3yZF\ncbtsGXe8PyA9Td/MYJsur/wZ8L3Pk6cqqYijLf6OMVBKabrcxXMonH3aZg8Z1UcV\njZxR830NAgMBAAECggEABiPUKUAleXy6H8qpOVinoDVfXnI5Dkw1uSVUeZuDHpat\n0v0k4EAIhwlM+LPeUtm8G8K8oFbOFmofUHVNwmbIVaQw1fRPg+sU5JGAw1BS5NlH\nov5T9iq8MoaTz0qZUGzXzg6PmYI/drnDpjM9SjeNi5cqiQxAmJlqLn5rJEn8iwJS\n3hiDAhAwfOOmEAlKs0KtMjyydHdL06ouBfdoYrzXvpqRzH6ZLFOPpAEypOHKJ99S\n9wjGKUK5VQAMUR175OwLch/GHRiSFqPCs53Ckcp4JKYbBwLAW7alBssUZaq1uCr2\n/W6s8kLteKFrGGHWHbsPnH1J+iIH6bF6HhBR93pm8QKBgQDTUXgbijq1uCRchMT1\nAPcjxvUzFsfqR+96pUrcPiCVef7HLkm4ohHcZc7zr5u6BEE2TFrn1Y07I+1DovLY\niZjPTSLjjXOeF7Ef+PTlcgZZwzB4S6yjZcVxWG78VDR84f70pFd6sHzheU+OUAx7\n3kIKrT06VwIUjRxxUoj3ZiOwPQKBgQDMqdsdoAOReVX+HHo/HgUKS0C5KUvcpIwO\nCvgRyqvVpPaqHOAloKtJHuFIxzWyLDJj09DqN7tKTpMA3f1OfdSkapbNc5Ct0l+W\n9pl7DJK2ix3bLtYXoWcGtWQxvW/sVVZ+JnaZjJQRsth3/pL0KOZ6a5KWuhSjR3U8\nES8VqBN9EQKBgQCW8BslOK/EupmmR+NSyPS95k+fxUbYTbd9V/FHrUyi1/eml6Zq\nrcCqN0ICB03pKT7XJOTNsVhmhLvlUs+44Vd3wrYH6TJLGssWdkGeXbqxhNzrH8pZ\nD8les3ba3t560QXGAljFtqgMeRTdJsoz88YiUClqsVk4Cq7lNrnEVH1rVQKBgBcj\nKLtbqKucjQUyUPuruCQmx8VnDsV98LtxsAPK5sw7XwtyQkDevh6BGDTzGHXxGy0/\n+AFSlaDb6zCQ6B8kiJKh3jSR2QxdmSLm9Aj+LePnLFPoIpn/TDds8EvTP8D3ENUo\nIgZP5zls/53pMNHbgdrbKHJTzRt8a5uD0c/f9XwRAoGAR7ZEbQUi+Aa0K0SO6eA+\n2TXvTXEApPTcCkTs19p7kNVmdI6HPwk86aeLMe9OD3W2pw2pK0AIofjRgYBBz3+S\nq5ZrNCUac12TO1X16aGKFhqYsY6YgqJjB+cZLDWRmhe08zcEjtwl06bi23HV16o/\nTNnLcawTzwu7Ei3tG9a5RZw=\n-----END PRIVATE KEY-----\n",
+  "client_email": "google-sheet-api@gifted-airport-450404-d4.iam.gserviceaccount.com",
+  "client_id": "112616530039349535556",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/google-sheet-api%40gifted-airport-450404-d4.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
