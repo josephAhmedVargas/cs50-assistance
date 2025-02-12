@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\UserDetail;
 use App\Http\Requests\StoreUserDetailRequest;
 use App\Http\Requests\UpdateUserDetailRequest;
+use Illuminate\Http\Request;
 
 class UserDetailController extends Controller
 {
@@ -46,6 +47,14 @@ class UserDetailController extends Controller
     public function edit(UserDetail $userDetail)
     {
         //
+    }
+
+    public function actualizar(Request $request, $userDetailId)
+    {
+        $userDetail = UserDetail::where('user_id', $userDetailId)->first();
+        $userDetail->update($request->all());
+
+        return back()->with('success', 'User details updated successfully');
     }
 
     /**

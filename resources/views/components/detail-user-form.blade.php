@@ -1,6 +1,6 @@
 <section class="bg-white dark:bg-gray-900 mb-4">
     <div class="px-4 mx-auto">
-        <form action="{{ route('user-details.store') }}" method="POST">
+        <form action="{{ route('user-detail.update', auth()->user()->id) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">

@@ -80,7 +80,7 @@
   </section> --}}
   <section class="bg-white dark:bg-gray-900 mb-4">
     <div class="px-4 mx-auto">
-      <form action="{{ route('user-details.store') }}" method="post">
+      <form action="{{ route('user-info.update', auth()->user()->id) }}" method="post">
         @csrf
         @method('PUT')
   

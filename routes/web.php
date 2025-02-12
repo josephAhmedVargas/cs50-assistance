@@ -27,20 +27,24 @@ Route::get('/prueba', function () {
     return view('prueba');
 });
 
+Route::resource('users-information', UsersInfoController::class)->middleware('auth');
+
+Route::resource('user-details', UserDetailController::class)->middleware('auth');
+Route::put('user-info/{id}', [UsersInfoController::class, 'actualizar'])->name('user-info.update')->middleware('auth');
+Route::put('user-detail/{id}', [UserDetailController::class, 'actualizar'])->name('user-detail.update')->middleware('auth');
+
+
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::resource('users-information', UsersInfoController::class);
-
-    Route::resource('user-details', UserDetailController::class);
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('attendances', AttendanceController::class);
 
     Route::resource('attendance-students', AttendanceStudentController::class);
 
     Route::get('attendances/block/{date}/{block}', [AttendanceController::class, 'blockDetails'])->name('attendances.block');
+    Route::get('attendances/block/{date}/{block}/{user_id}', [AttendanceController::class, 'showDetails'])->name('attendances.details');
 });
 
 require __DIR__.'/auth.php';

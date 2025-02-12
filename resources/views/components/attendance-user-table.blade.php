@@ -18,7 +18,7 @@
             </div>
             <div>
                 <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Actividad</label>
-                <select id="type" name="type" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <select disabled id="type" name="type2" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value="class">Clase</option>
                     <option value="office_hour">Office Hour</option>
                 </select>
@@ -64,10 +64,7 @@
 
             <div class="mt-10 w-full">
                 <h2 class="text-2xl font-semibold mb-4">Agregar Estudiantes</h2>
-                {{-- <div class="mb-4">
-                    <label for="search-student" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Buscar estudiante</label>
-                    <input type="text" id="search-student" placeholder="Buscar estudiante..." class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                </div> --}}
+                
                 <div class="mb-4 relative">
                     <input type="text" id="search-student" class="w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300" placeholder="Buscar estudiante...">
                     <ul id="search-results" class="absolute w-full bg-white border rounded-md mt-1 max-h-60 overflow-y-auto shadow-lg hidden"></ul>
@@ -83,10 +80,10 @@
                 <div id="hours-container" class="hidden">
                     <label for="hours_attended" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Horas Cumplidas</label>
                     <select id="hours_attended" name="hours_attended" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="0.5">0.5</option>
-                        <option value="1">1</option>
-                        <option value="1.5">1.5</option>
                         <option value="2">2</option>
+                        <option value="1.5">1.5</option>
+                        <option value="1">1</option>
+                        <option value="0.5">0.5</option>
                     </select>
                 </div>
 
@@ -119,16 +116,26 @@
 
         <input type="hidden" name="student_ids" id="hidden_input">
         <input type="hidden" name="selected_students" id="hidden_zzz">
+        <input type="hidden" name="type" id="hidden_type">
     </form>
     
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector('form').addEventListener('submit', function () {
+        document.getElementById("type").removeAttribute("disabled");
+    });
         
     const fechaActual = new Date().toISOString().split('T')[0];
 
     document.getElementById("fecha").value = fechaActual;
+
+    const fechaInput = document.getElementById("fecha");
+    const horarioInput = document.getElementById("horario");
+    const typeInput = document.getElementById("type");
+
+    console.log(typeInput.value);
 
     let selectedStudents = [];
     let listStudents = [];
@@ -161,34 +168,92 @@
             });
             let columns = dataTable.columns;
             columns.remove(6);
-    
-            document.getElementById("type").addEventListener("change", function() {
-                
-                type = this.value;
 
+            function validarFechaYHorario() {
+                const fechaSeleccionada = new Date(fechaInput.value);
+                const diaSemana = fechaSeleccionada.getDay(); // 0 = Domingo, 1 = Lunes, ..., 6 = Sábado
+                console.log(diaSemana);
+                const horarioSeleccionado = horarioInput.value;
+
+                if (diaSemana === 0 || diaSemana === 3) {
+                    // Lunes (1) o Jueves (4) siempre es Clase
+                    typeInput.value = "class";
+                } else if (diaSemana === 5 && (horarioSeleccionado === "8-10" || horarioSeleccionado === "10-12")) {
+                    // Sábado (6) en horario de 8-10 o 10-12 también es Clase
+                    typeInput.value = "class";
+                } else {
+                    // Cualquier otro día y horario es Office Hour
+                    typeInput.value = "office_hour";
+                }
+            
                 let classContainer = document.getElementById("class-container");
-                let officeContainer = document.getElementById("office-container");
                 let hoursContainer = document.getElementById("hours-container");
-
-                if (type === "class") {
+                let officeContainer = document.getElementById("office-container");
+                if (typeInput.value === "class") {
                     classContainer.classList.remove("hidden");
                     officeContainer.classList.add("hidden");
                     hoursContainer.classList.add("hidden");
-                    columns.remove(6);
+                    console.log(columns.size());
+                    if (dataTable.data.headings.length === 8)
+                    {
+                        columns.remove(6);
+                    }
 
-                } else if (type === "office_hour") {
+                } else if (typeInput.value === "office_hour") {
                     classContainer.classList.add("hidden");
                     officeContainer.classList.remove("hidden");
                     hoursContainer.classList.remove("hidden");
                     let newHeading = {
                         heading: "Cumplimiento",
                     }
-                    columns.add(newHeading);
-                    columns.order[0,1,2,3,4,7,5,6]
-                    columns.swap([6, 7]);
-
+                    console.log(columns.size());
+                    if (dataTable.data.headings.length === 7)
+                    {
+                        columns.add(newHeading);
+                        columns.order[0,1,2,3,4,7,5,6]
+                        columns.swap([6, 7]);    
+                        console.log(columns.size());
+                    }
+                    
                 }
-            });
+
+                document.getElementById("hidden_type").value = typeInput.value;
+
+            }
+            console.log("Numero de columnas: " + columns.size());
+            validarFechaYHorario();
+            console.log(dataTable);
+
+            fechaInput.addEventListener("change", validarFechaYHorario);
+            horarioInput.addEventListener("change", validarFechaYHorario);
+    
+            // document.getElementById("type").addEventListener("change", function() {
+                
+            //     type = this.value;
+
+            //     let classContainer = document.getElementById("class-container");
+            //     let officeContainer = document.getElementById("office-container");
+            //     let hoursContainer = document.getElementById("hours-container");
+
+            //     if (type === "class") {
+            //         classContainer.classList.remove("hidden");
+            //         officeContainer.classList.add("hidden");
+            //         hoursContainer.classList.add("hidden");
+            //         columns.remove(6);
+
+            //     } else if (type === "office_hour") {
+            //         classContainer.classList.add("hidden");
+            //         officeContainer.classList.remove("hidden");
+            //         hoursContainer.classList.remove("hidden");
+            //         let newHeading = {
+            //             heading: "Cumplimiento",
+            //         }
+            //         columns.add(newHeading);
+            //         columns.order[0,1,2,3,4,7,5,6]
+            //         columns.swap([6, 7]);
+
+            //     }
+            // });
 
     // Buscar estudiantes en tiempo real
     document.getElementById("search-student").addEventListener("input", function () {
@@ -205,7 +270,7 @@
                             data.forEach(student => {
                                 let li = document.createElement("li");
                                 let uniqueCode = student.user.unique_code;
-                                let group = student.group.name;
+                                let group = student.group.name ?? "Group A";
                                 let fullName = uniqueCode + " - " + student.first_name + " " + student.middle_name + " " + student.last_name + " " + student.second_last_name + " - " + group;
                                 li.textContent = fullName;
                                 li.dataset.id = student.user_id;
@@ -254,7 +319,7 @@
             let studentData = { id: studentId, nombre: studentName, codigo: studentCode, grupo: studentGroup, asistencia: attendance, nota: note, horas_atendidas: hours_attended ?? null };
             selectedStudents.push(studentData);
             dataTable.insert({data : 
-            [[numberStudents, studentName, studentCode, studentGroup, attendance, note, hours_attended, `<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button> 
+            [[numberStudents, studentName, studentCode, studentGroup, attendance, note, hours_attended, `<button data-modal-target="student-modal" data-modal-toggle="student-modal" class="student-edit-mod bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-id="${studentData.id}">Edit</button> 
              <button class="delete-student bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="${studentData.id}">Delete</button>`
             ]]
         });
@@ -262,7 +327,7 @@
             let studentData = { id: studentId, nombre: studentName, codigo: studentCode, grupo: studentGroup, asistencia: attendance, nota: note };
             selectedStudents.push(studentData);
             dataTable.insert({data : 
-            [[numberStudents, studentName, studentCode, studentGroup, attendance, note, `<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Edit</button> 
+            [[numberStudents, studentName, studentCode, studentGroup, attendance, note, `<button data-modal-target="student-modal" data-modal-toggle="student-modal" class="student-edit-mod bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-id="${studentData.id}">Edit</button> 
              <button class="delete-student bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" data-id="${studentData.id}">Delete</button>`
             ]]
         });
@@ -305,6 +370,17 @@
             console.log("IDs después de eliminar:", selectedStudentIds);
             document.getElementById("hidden_input").value = JSON.stringify(selectedStudentIds);
             document.getElementById("hidden_zzz").value = JSON.stringify(selectedStudents);
+        }
+
+        if (e.target.classList.contains("student-edit-mod")) {
+            e.preventDefault();
+            let id = e.target.dataset.id;
+            console.log(id);
+            student_modal = document.getElementById("student-modal");
+            student_modal.show();
+            // selectedStudentIds = selectedStudentIds.filter(s => s !== id);
+            // selectedStudents = selectedStudents.filter(s => s.id !== id);
+            
         }
     });
 });

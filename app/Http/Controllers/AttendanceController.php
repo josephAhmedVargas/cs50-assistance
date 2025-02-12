@@ -323,6 +323,21 @@ class AttendanceController extends Controller
         return response()->json(['attendances' => $attendances]);
     }
 
+    public function showDetails(Request $request, $date, $block, $user_id)
+    {
+        $attendances = Attendance::with(['user_who_registered', 'students.info', 'students.group'])
+            ->where('schedule', $block)
+            ->whereDate('created_at', $date)
+            ->where('registered_by', $user_id)
+            ->whereNull('deleted_at')
+            ->get();
+
+        if ($attendances->isEmpty()) {
+            Log::warning("No se encontraron asistencias para la fecha $date y bloque $block");
+        }
+        return response()->json(['attendances' => $attendances]);
+    }
+
     /**
      * Update the specified resource in storage.
      */

@@ -17,54 +17,55 @@ class GoogleSheetController extends Controller
         $header = $shhet->pull(0);
         $values = Sheets::collection(header: $header, rows: $shhet);
         $data = array_values($values->toArray());
-        $fullNames = $data[0]["Nombres"];
-        $fullLastName = $data[0]["Apellidos"];
-        // Dividimos el nombre completo en un arreglo utilizando el espacio como delimitador
-        $nombresSeparados = explode(" ", $fullNames);
-        $apellidosSeparados = explode(" ", $fullLastName);
-
-        // Asignamos los nombres a variables individuales
-        $firstName = $nombresSeparados[0]; // "Juan"
-        $middleName = isset($nombresSeparados[1]) ? $nombresSeparados[1] : ''; // "Carlos" (o una cadena vacía si no hay segundo nombre)
-
-        $lastName = $apellidosSeparados[0]; // "Perez"
-        $secondLastName = isset($apellidosSeparados[1]) ? $apellidosSeparados[1] : ''; // "Gomez" (o una cadena vacía si no hay segundo apellido)
-        // Visualizamos los resultados
-        $unique_code = $data[0]["Docs"];
-        $position = $data[0]["Position"];
-        $universidad = $data[0]["Universidad"];
-        $carrera = $data[0]["Carrera"];
-        $correo_code = $data[0]["Correo Code"];
-        $biography = $data[0]["Biography"];
-        $cedula = $data[0]["Cédula"];
-        $github = $data[0]["GitHub"];
-        $direccion = $data[0]["Dirección"];
-        $camiseta = $data[0]["Camiseta"];
-        $correo = $data[0]["Gmail"];
-        $celular = $data[0]["Celular"];
-        // dd($data[21]);
-        // dd($unique_code, $position, $universidad, $carrera, $correo_code, $biography, $cedula, $direccion, $camiseta, $correo, $celular);
+        foreach ($data as $dato) {
+            $fullNames = isset($dato["Nombres"]) ? $dato["Nombres"] : '';
+            $fullLastName = isset($dato["Apellidos"]) ? $dato["Apellidos"] : '';
         
-        $already_exists = User::where('email', $correo)->exists();
-        // dd($already_exists, $birth_date);
-
-
-        if (!$already_exists) {
+            // Dividir nombres y apellidos
+            $nombresSeparados = explode(" ", $fullNames);
+            $apellidosSeparados = explode(" ", $fullLastName);
+        
+            $firstName = $nombresSeparados[0] ?? '';
+            $middleName = $nombresSeparados[1] ?? '';
+            $lastName = $apellidosSeparados[0] ?? '';
+            $secondLastName = $apellidosSeparados[1] ?? '';
+        
+            $unique_code = $dato["Docs"] ?? '';
+            $position = $dato["Position"] ?? '';
+            $universidad = $dato["Universidad"] ?? '';
+            $carrera = $dato["Carrera"] ?? '';
+            $correo_code = $dato["Correo Code"] ?? '';
+            $biography = $dato["Biography"] ?? '';
+            $cedula = $dato["Cédula"] ?? '';
+            $github = $dato["GitHub"] ?? '';
+            $direccion = $dato["Dirección"] ?? '';
+            $camiseta = $dato["Camiseta"] ?? '';
+            $correo = $dato["Gmail"] ?? '';
+            $celular = $dato["Celular"] ?? '';
+        
+            // Verificar si el usuario ya existe
+            if (User::where('email', $correo)->exists()) {
+                continue; // Si el usuario ya existe, pasa al siguiente sin detener la ejecución
+            }
+        
+            // Crear usuario
             $user = User::create([
                 'unique_code' => $unique_code,
                 'name' => $firstName,
                 'email' => $correo,
                 'password' => bcrypt('123456'),
-                'role_id' => $position == '' ? 5 : 2,
+                'role_id' => empty($position) ? 5 : 2,
                 'group_id' => 1,
             ]);
-
+        
+            // Crear detalles del usuario
             $user->details()->create([
                 'github_username' => $github,
                 'biography' => $biography,
                 'staff_email' => $correo_code
             ]);
-
+        
+            // Crear información adicional del usuario
             $user->info()->create([
                 'first_name' => $firstName,
                 'middle_name' => $middleName,
@@ -80,10 +81,7 @@ class GoogleSheetController extends Controller
                 'tshirt_size' => $camiseta,
                 'phone' => $celular,
             ]);
-        }else{
-            dd('El usuario ya existe');
         }
-        
     }
 
     public function extraerFechaFormateada($cadena) {

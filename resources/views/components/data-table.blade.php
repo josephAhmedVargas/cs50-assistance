@@ -56,9 +56,16 @@ $titulos = [
                     class="attendance_details px-2 py-1 text-xs font-semibold text-gray-600 bg-gray-100 rounded hover:bg-gray-200" data-attendance-id="{{ $attendance->id }}">
                     Ver detalles
                 </a> --}}
+                <button data-modal-target="details-modal" data-modal-toggle="details-modal" class="view-details-user px-2 py-1 text-xs font-semibold text-blue-600 bg-blue-100 rounded hover:bg-blue-200" 
+                    data-date="{{ $attendance->created_at->format('Y-m-d') }}" 
+                    data-block="{{ $attendance->schedule }}" data-user_id = "{{ $attendance->registered_by }}" >
+                    Ver detalles
+                </button>
+
+                
 
                 <!-- Botón Eliminar (Solo si el usuario autenticado es el creador) -->
-                @if (auth()->id() === $attendance->uploaded_by)
+                @if (auth()->id() === $attendance->registered_by)
                 <form action="{{ route('attendances.destroy', $attendance->id) }}" method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar esta asistencia?');">
                     @csrf
                     @method('DELETE')

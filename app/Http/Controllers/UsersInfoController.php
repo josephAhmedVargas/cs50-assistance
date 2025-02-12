@@ -6,6 +6,7 @@ use App\Models\UsersInfo;
 use App\Http\Requests\StoreUsersInfoRequest;
 use App\Http\Requests\UpdateUsersInfoRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class UsersInfoController extends Controller
 {
@@ -88,7 +89,16 @@ class UsersInfoController extends Controller
      */
     public function update(UpdateUsersInfoRequest $request, UsersInfo $usersInfo)
     {
-        //
+        // dd($request->all());
+    }
+
+    public function actualizar(Request $request, $usersInfoId)
+    {
+
+        $usersInfo = UsersInfo::where('user_id', $usersInfoId)->first();
+        $usersInfo->update($request->all());
+
+        return back()->with('success', 'User information updated successfully');
     }
 
     /**
